@@ -8,67 +8,24 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 const gravity = 0.4;
 
-class Sprite{
-    //by passing the arguments as objects, they are not required and order doesn't matter.
-    //if you pass it as argument, order is important and they are required.
-    constructor({position, velocity, color = 'darkred', offset}){
-        this.position = position;
-        this.velocity = velocity;
-        this.width = 50;
-        this.height = 150;
-        this.lastKey;
-        this.attackBox = {
-            position: {
-                x: this.position.x,
-                y: this.position.y
-            },
-            offset,
-            width: 80,
-            height: 50
-        }
-        this.color = color;
-        this.isAttacking;
-        this.health = 100;
-    }
+const background = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    },
+    imageSrc: './imgs/background.png'
+});
+const shop = new Sprite({
+    position: {
+        x: 600,
+        y: 97
+    },
+    imageSrc: './imgs/shop.png',
+    scale: 3,
+    framesMax: 6
+});
 
-    draw() {
-        //draws the players
-        c.fillStyle = this.color;
-        c.fillRect (this.position.x, this.position.y, this.width, this.height);
-
-        //draws the attacks
-        if (this.isAttacking){
-            c.fillStyle = 'green'
-            c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-        }
-    }
-
-    update(){
-        this.draw();
-        this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
-        this.attackBox.position.y = this.position.y;
-
-        this.position.x += this.velocity.x;
-
-        this.position.y += this.velocity.y;
-
-        if (this.velocity.y + this.height + this.position.y >= canvas.height){
-            this.velocity.y = 0;
-        } else {
-            this.velocity.y += gravity;
-
-        }
-    }
-
-    attack(){
-        this.isAttacking = true;
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 100);
-    }
-}
-
-const player = new Sprite({
+const player = new Fighter({
     position: {
         x: 0,
         y: 5
@@ -80,10 +37,17 @@ const player = new Sprite({
     offset: {
         x: 0,
         y: 0
+    },
+    imageSrc: './imgs/samuraiMack/idle.png',
+    framesMax: 8,
+    scale: 2.3,
+    offset: {
+        x: 200,
+        y: 100
     }
 });
 
-const enemy = new Sprite({
+const enemy = new Fighter({
     position: {
         x: 200,
         y: 40
@@ -120,45 +84,12 @@ const keys = {
     },
 }
 
-function rectCollision({rect1, rect2}){
-    return(
-        rect1.attackBox.position.x + rect1.attackBox.width >= rect2.position.x
-        && rect1.attackBox.position.x <= rect2.position.x + rect2.width &&
-        rect1.attackBox.position.y + rect1.attackBox.height >= rect2.position.y &&
-        rect1.attackBox.position.y <= rect2.position.y + rect2.height
-    )
-}
-
-function determineWinner({player, enemy, timerId}){
-    clearTimeout(timerId)
-    document.querySelector('.textOnScreen').style.display = 'flex'
-    if (player.health === enemy.health){
-        document.querySelector('.textOnScreen').innerHTML = 'Tie!!'
-    } else if (player.health > enemy.health){
-        document.querySelector('.textOnScreen').innerHTML = 'Player 1 Wins!'
-    } else if (player.health < enemy.health){
-        document.querySelector('.textOnScreen').innerHTML = 'Player 2 Wins!'
-    }
-}
-
-let timer = 30;
-let timerId;
-function decreaseTimer(){
-    if (timer > 0 ) {
-        timerId = setTimeout(decreaseTimer, 1000);
-        timer--; 
-        document.querySelector('.timer').innerHTML = timer;
-    }
-
-    if (timer === 0) determineWinner({player, enemy, timerId})
-    }
-
-decreaseTimer();
-
 function animate(){
     window.requestAnimationFrame(animate);
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);
+    background.update();
+    shop.update();
     player.update();
     enemy.update();
 
@@ -185,7 +116,7 @@ function animate(){
         rect2: enemy
     }) && player.isAttacking){
         player.isAttacking = false;
-        enemy.health -= 20;
+        enemy.health -= 10;
         document.querySelector('#enemyHp').style.width = enemy.health + '%';
     }
 
@@ -194,7 +125,7 @@ function animate(){
         rect2: player
     }) && enemy.isAttacking){
         enemy.isAttacking = false;
-        player.health -= 20;
+        player.health -= 10;
         document.querySelector('#playerHp').style.width = player.health + '%';
     }
 
@@ -207,6 +138,7 @@ function animate(){
     }
 }
 
+decreaseTimer();
 animate()
 
 window.addEventListener('keydown', (event) => {
