@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+}
+
+.main {
+    position: relative;
+    display: inline-block;
+}
+.container {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+}
+.player {
+    display: flex;
+    justify-content: flex-end;
+    background-color: yellow;
+    height: 30px;
+    width: 100%;
+}
+.player-bar {
+    background-color: blueviolet;
+    height: 30px;
+    width: 100%;
+}
+.timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: whitesmoke;
+    font-size: 3rem;
+    background-color: red;
+    height: 50px;
+    width: 100px;
+    flex-shrink: 0;
+}
+.enemy {
+    background-color: yellow;
+    height: 30px;
+    width: 100%;
+}
+.enemy-bar {
+    background-color: yellowgreen;
+    height: 30px;
+    width: 100%;
+}
+.textOnScreen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    color: white;
+    font-size: 3.5rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
