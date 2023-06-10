@@ -60,8 +60,9 @@ class Fighter extends Sprite{
             framesMax = 1,
             offset = {x:0, y:0},
             sprites,
-            // attackBox = { offset: {}, width: 100, height: 50 }
+            weaponBox = { offset: {}, width: undefined, height: undefined }
         }){
+        
         super({
             position,
             imageSrc,
@@ -69,20 +70,20 @@ class Fighter extends Sprite{
             framesMax,
             offset
         })
-
+        
         this.velocity = velocity;
         this.width = 50;
         this.height = 150;
         this.lastKey;
-        this.attackBox = {
+        this.weaponBox = {
             position: {
                 x: this.position.x,
                 y: this.position.y
             },
-            offset,
-            width: 100,
-            height: 50
-            
+            offset: weaponBox.offset,
+            width: weaponBox.width,
+            height: weaponBox.height
+
         }
         this.color = color;
         this.isAttacking;
@@ -104,14 +105,19 @@ class Fighter extends Sprite{
         this.animateFrames();
 
         //attack box statements
-        this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
-        this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
+        this.weaponBox.position.x = this.position.x + this.weaponBox.offset.x;
+        this.weaponBox.position.y = this.position.y + this.weaponBox.offset.y;
 
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        c.fillStyle = 'red';
+        //attackbox position        
 
+        c.fillRect(this.weaponBox.position.x, this.weaponBox.position.y, this.weaponBox.width, this.weaponBox.height)
+        
+         //players positions
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
 
+        //gravity function
         if (this.velocity.y + this.height + this.position.y >= canvas.height - 95){
             this.velocity.y = 0;
             this.position.y = 331;

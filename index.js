@@ -65,21 +65,21 @@ const player = new Fighter({
         attack1: {
             imageSrc: './imgs/samuraiMack/Attack1.png',
             framesMax: 6
+        }
+    },
+    weaponBox: {
+        offset: {
+            x: 0,
+            y: 65
         },
-        // attackBox: {
-        //     offset: {
-        //         x: 0,
-        //         y: 0
-        //     },
-        //     width: 0,
-        //     height: 0
-        // }
+        width: 150,
+        height: 50
     }
 });
 
 const enemy = new Fighter({
     position: {
-        x: 0,
+        x: 500,
         y: 0
     },
     velocity: {
@@ -95,7 +95,7 @@ const enemy = new Fighter({
     scale: 2.3,
     offset: {
         x: 0,
-        y: 145
+        y: 142
     },
     sprites: {
         idle: {
@@ -117,15 +117,15 @@ const enemy = new Fighter({
         attack1: {
             imageSrc: './imgs/kenji/Attack1.png',
             framesMax: 4
+        }
+    },
+    weaponBox: {
+        offset: {
+            x: 0,
+            y: 65
         },
-        // attackBox: {
-        //     offset: {
-        //         x: 0,
-        //         y: 0
-        //     },
-        //     width: 0,
-        //     height: 0
-        // }
+        width: 150,
+        height: 50
     }
 });
 
@@ -156,8 +156,12 @@ function animate(){
     c.fillRect(0, 0, canvas.width, canvas.height);
     background.update();
     shop.update();
+
     player.update();
     enemy.update();
+    console.log(`Player WeaponBox properties: ${JSON.stringify(player.weaponBox)}`);
+    console.log(`Enemy WeaponBox properties: ${JSON.stringify(enemy.weaponBox)}`);
+    
 
     player.velocity.x = 0
     enemy.velocity.x = 0
