@@ -1,8 +1,14 @@
-body {
-    margin: 0;
-}
 * {
     box-sizing: border-box;
+    --bar-color: #6366F1;
+    --bar-bg-color: #B91C1C;
+    --timer-color: hsl(215.39999999999998, 16.3%, 46.9%);
+    --soft-white: hsl(210, 40%, 96.1%);
+}
+
+body {
+    margin: 0;
+    font-family: 'Press Start 2P', sans-serif, cursive;
 }
 
 .main {
@@ -19,12 +25,13 @@ body {
 .player {
     display: flex;
     justify-content: flex-end;
-    background-color: yellow;
-    height: 30px;
+    background-color: var(--bar-bg-color);
+    /* height: 30px; */
     width: 100%;
+    border: 3px double var(--soft-white);
 }
 .player-bar {
-    background-color: blueviolet;
+    background-color: var(--bar-color);
     height: 30px;
     width: 100%;
 }
@@ -32,21 +39,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: whitesmoke;
-    font-size: 3rem;
-    background-color: red;
+    font-size: 1.2rem;
+    background-color: var(--timer-color);
     height: 50px;
     width: 100px;
     flex-shrink: 0;
+    border-radius: 15px;
+    border-top: 3px double var(--soft-white);
+    border-bottom: 3px double var(--soft-white);
 }
 .enemy {
-    background-color: yellow;
-    height: 30px;
+    background-color: var(--bar-bg-color);
     width: 100%;
+    border: 3px double var(--soft-white);
+
 }
 .enemy-bar {
-    background-color: yellowgreen;
+    background-color: var(--bar-color);
     height: 30px;
     width: 100%;
 }
@@ -55,8 +65,7 @@ body {
     height: 100%;
     position: absolute;
     color: white;
-    font-size: 3.5rem;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2.5rem;
     display: none;
     justify-content: center;
     align-items: center;
